@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO App</title>
+</head>
+<body>
+    <h1>Список задач</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить</button>
+    </form>
+
+    <ul>
+        {% for todo in todos %}
+            <li>
+                <input type="checkbox" {% if todo.completed %}checked{% endif %}>
+                {{ todo.text }}
+                <a href="{% url 'delete_todo' todo.id %}">Удалить</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
